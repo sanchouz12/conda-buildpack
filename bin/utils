@@ -39,11 +39,19 @@ function un-set-env (){
 }
 
 # Does some serious copying.
-function deep-cp (){
-  find -H $1 -maxdepth 1 -name '.*' -a \( -type d -o -type f -o -type l \) -exec cp -a '{}' $2 \;
-  cp -r $1 $2
-  # echo copying $1 to $2
-}
+deep-cp() {
+  declare source="$1" target="$2"
+
+  mkdir -p "$target"
+
+  # cp doesn't like being called without source params,
+  # so make sure they expand to something first.
+  # subshell to avoid surprising caller with shopts.
+  (
+    shopt -s nullglob dotglob
+    set -- "$source"/!(tmp|.|..)
+    [[ $# == 0 ]] || cp -a "$@" "$target"
+  )
 
 # Does some serious moving.
 function deep-mv (){

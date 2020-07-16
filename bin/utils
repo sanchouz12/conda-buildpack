@@ -52,6 +52,7 @@ deep-cp() {
     set -- "$source"/!(tmp|.|..)
     [[ $# == 0 ]] || cp -a "$@" "$target"
   )
+}
 
 # Does some serious moving.
 function deep-mv (){

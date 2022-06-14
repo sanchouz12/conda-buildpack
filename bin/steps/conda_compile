@@ -8,8 +8,9 @@ if [ ! -d /app/.heroku/miniconda ]; then
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     bash Miniconda3-latest-Linux-x86_64.sh -b
     # bash $ROOT_DIR/ext/Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
+    source .bashrc
     conda init bash
-    
+
     conda update conda
     conda install pip --yes | indent
 fi

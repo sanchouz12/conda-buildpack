@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-export PATH=$BUILD_DIR/.heroku/miniconda/bin:$PATH
+# export PATH=$BUILD_DIR/.heroku/miniconda/bin:$PATH
+export PATH=/app/miniconda3/condabin/:$PATH
+export PATH=/app/miniconda3/bin/:$PATH
+
 
 if [ ! -d /app/.heroku/miniconda ]; then
     puts-step "Preparing Python/Miniconda Environment"
@@ -8,10 +11,10 @@ if [ ! -d /app/.heroku/miniconda ]; then
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     bash Miniconda3-latest-Linux-x86_64.sh -b
     # bash $ROOT_DIR/ext/Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
-    /app/miniconda3/condabin/conda init bash
+    conda init bash
 
-    /app/miniconda3/condabin/conda update conda
-    /app/miniconda3/condabin/conda install pip --yes | indent
+    conda update conda
+    conda install pip --yes | indent
 fi
 
 # echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
@@ -21,13 +24,13 @@ fi
 
 if [ -f conda-requirements.txt ]; then
     puts-step "Installing conda requirements"
-    /app/miniconda3/condabin/conda install --file conda-requirements.txt
+    conda install --file conda-requirements.txt
 fi
 
 if [ -f requirements.txt ]; then
     puts-step "Installing dependencies using Pip"
-    /app/miniconda3/bin/pip install -r requirements.txt  --exists-action=w | indent
+    pip install -r requirements.txt  --exists-action=w | indent
 fi
 
 # Clean up the installation environment .
-/app/miniconda3/condabin/conda clean -pt --yes > /dev/null
+conda clean -pt --yes > /dev/null

@@ -21,7 +21,7 @@ fi
 
 if [ -f conda-requirements.txt ]; then
     puts-step "Installing q-ta-lib using Conda"
-    /app/miniconda3/condabin/conda install -c quantopian ta-lib=0.4.9
+    # /app/miniconda3/condabin/conda install -c quantopian ta-lib=0.4.9
 fi
 
 if [ -f requirements.txt ]; then

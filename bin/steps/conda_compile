@@ -33,4 +33,6 @@ if [ -f requirements.txt ]; then
 fi
 
 # Clean up the installation environment .
-conda clean -a --yes > /dev/null
+puts-step "Cleaning conda env"
+conda clean -a --yes
+puts-step "Finished cleaning conda env"
